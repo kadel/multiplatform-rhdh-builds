@@ -1,4 +1,4 @@
-name: build main rhdh
+name: build main rhdh on arm64
 
 on:
   workflow_dispatch:
@@ -51,7 +51,7 @@ jobs:
     - name: Build and push
       uses: docker/build-push-action@v6
       with:
-        platforms: linux/amd64,linux/arm64
+        platforms: linux/arm64
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
