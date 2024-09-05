@@ -1,4 +1,4 @@
-name: build main rhdh on arm64
+name: build backstage-showcase image on arm64
 
 on:
   workflow_dispatch:
