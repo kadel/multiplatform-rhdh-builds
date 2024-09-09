@@ -14,7 +14,7 @@ on:
     branches: [ "main" ]
 
 env:
-  REGISTRY_IMAGE: janus-idp/backstage-showcase
+  REGISTRY_IMAGE: quay.io/tkral/backstage-showcase
 
 jobs:
   build:
