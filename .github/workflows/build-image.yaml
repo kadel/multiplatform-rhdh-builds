@@ -55,7 +55,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: quay.io/tkral/backstage-showcase
+          images: ${{ env.REGISTRY_IMAGE }}
           tags: |
             type=ref,event=branch
             type=ref,event=pr
@@ -63,13 +63,14 @@ jobs:
             type=semver,pattern={{major}}.{{minor}}
             type=sha
 
-      - name: Build image
+      - name: Build and push by digest
         uses: docker/build-push-action@v6
         id: build
         with:
           platforms: ${{ matrix.platform }}
           # tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          push: true
           context: .
           file: docker/Dockerfile
           outputs: type=image,name=${{ env.REGISTRY_IMAGE }},push-by-digest=true,name-canonical=true,push=true
