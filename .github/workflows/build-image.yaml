@@ -56,25 +56,15 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: ${{ env.REGISTRY_IMAGE }}
-          tags: |
-            type=ref,event=branch
-            type=ref,event=pr
-            type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
-            type=sha
 
       - name: Build and push by digest
-        uses: docker/build-push-action@v6
         id: build
+        uses: docker/build-push-action@v6
         with:
           platforms: ${{ matrix.platform }}
-          # tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          push: true
-          context: .
-          file: docker/Dockerfile
           outputs: type=image,name=${{ env.REGISTRY_IMAGE }},push-by-digest=true,name-canonical=true,push=true
-
+      
       - name: Export digest
         run: |
           mkdir -p /tmp/digests
